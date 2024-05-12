@@ -53,7 +53,7 @@ const calculateMovingCost = (monthsLength) => {
   const pricePerMonth = 1900;
   const paidMonths = Math.max(0, 2 - monthsLength);
 
-  return pricePerMonth * paidMonths;
+  return Math.round((pricePerMonth * paidMonths) / 12);
 }
 
 const calculateLabelPrice = (label) => {
