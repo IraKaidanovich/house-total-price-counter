@@ -82,7 +82,7 @@ const calculateTravelPrice = (travelTicket) => {
     'Full city': 3354
   };
 
-  return pricesPerZonesPerYear[travelTicket] / 12;
+  return Math.round(pricesPerZonesPerYear[travelTicket] / 12);
 }
 
 const main = async () => {
@@ -103,6 +103,7 @@ const main = async () => {
     Enegy label: ${label} (${labelPrice} euros),
     Travel ticket: ${travelTicket}${travelTicket === 'Full city' ? '' : ' zones'} (${travelPrice} euros),
     Services price: ${priceForServices},
+    MoveIn price: ${moveInPrice},
     Total price: ${Math.round(totalPrice)} euros
   `);
 
