@@ -26,9 +26,11 @@ const inputLabel = async () => {
   });
 }
 
-const inputTravelTicket = async () => {
+const inputTravelTicket = async (name) => {
   return new Promise(done => {
-    readline.question('For how many zones do you need to buy ticket? (0 = no need for ticket, 7 = full city ticket) \n', travelTicket => {
+    readline.question(
+    `For how many zones do you need to buy ticket for ${name}? (0 = no need for ticket, 7 = full city ticket) \n`, 
+    travelTicket => {
       travelTicket = +travelTicket;
 
       // if ticket is unknown we assume that it is full city ticket
@@ -37,14 +39,6 @@ const inputTravelTicket = async () => {
       }
 
       done(travelTicket);
-    });
-  });
-}
-
-const inputMoveInDate = async () => {
-  return new Promise(done => {
-    readline.question('How many months do you have to move in (You have 2 months notice period) \n', moveInMonths => {
-      done(+moveInMonths);
     });
   });
 }
@@ -88,20 +82,23 @@ const calculateTravelPrice = (travelTicket) => {
 const main = async () => {
   const price = await inputPrice();
   const label = await inputLabel();
-  const travelTicket = await inputTravelTicket();
-  const monthsUntilMoveIn = await inputMoveInDate();
+  const travelTicketMisha = await inputTravelTicket('Misha');
+  const travelTicketNataliia = await inputTravelTicket('Nataliia');
+  const monthsUntilMoveIn = 1;
 
   const labelPrice = calculateLabelPrice(label);
-  const travelPrice = calculateTravelPrice(travelTicket);
+  const travelPriceMisha = calculateTravelPrice(travelTicketMisha);
+  const travelPriceNataliia = calculateTravelPrice(travelTicketNataliia);
   const moveInPrice = calculateMovingCost(monthsUntilMoveIn);
   const priceForServices = 100; // Ziggo, water, trash etc.
 
-  const totalPrice = price + labelPrice + travelPrice + moveInPrice + priceForServices;
+  const totalPrice = price + labelPrice + travelPriceMisha + travelPriceNataliia + moveInPrice + priceForServices;
 
   console.log(`
     Rent price: ${price} euros,
     Enegy label: ${label} (${labelPrice} euros),
-    Travel ticket: ${travelTicket}${travelTicket === 'Full city' ? '' : ' zones'} (${travelPrice} euros),
+    Travel ticket Misha: ${travelTicketMisha}${travelTicketMisha === 'Full city' ? '' : ' zones'} (${travelPriceMisha} euros),
+    Travel ticket Nataliia: ${travelTicketNataliia}${travelTicketNataliia === 'Full city' ? '' : ' zones'} (${travelPriceNataliia} euros),
     Services price: ${priceForServices},
     MoveIn price: ${moveInPrice},
     Total price: ${Math.round(totalPrice)} euros,
