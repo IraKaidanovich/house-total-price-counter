@@ -41,7 +41,7 @@ const inputTravelTicket = async () => {
 
 const inputMoveInDate = async () => {
   return new Promise(done => {
-    readline.question('How many months do you have to move in \n', moveInMonths => {
+    readline.question('How many months do you have to move in (You have 2 months notice period) \n', moveInMonths => {
       done(+moveInMonths);
     });
   });
@@ -98,8 +98,9 @@ const main = async () => {
 
   console.log(`
     Rent price: ${price} euros,
-    Enegy label: ${label},
-    Travel ticket: ${travelTicket}${travelTicket === 'Full city' ? '' : ' zones'},
+    Enegy label: ${label} (${labelPrice} euros),
+    Travel ticket: ${travelTicket}${travelTicket === 'Full city' ? '' : ' zones'} (${travelPrice} euros),
+    Services price: ${priceForServices},
     Total price: ${Math.round(totalPrice)} euros
   `);
 
