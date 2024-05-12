@@ -91,9 +91,9 @@ const main = async () => {
   const labelPrice = calculateLabelPrice(label);
   const travelPrice = calculateTravelPrice(travelTicket);
   const moveInPrice = calculateMovingCost(monthsUntilMoveIn);
+  const priceForServices = 100; // Ziggo, water, trash etc.
 
-  const totalPrice = price + labelPrice + travelPrice + moveInPrice;
-  console.log(price, labelPrice, travelPrice, moveInPrice);
+  const totalPrice = price + labelPrice + travelPrice + moveInPrice + priceForServices;
 
   console.log(`
     Rent price: ${price} euros,
