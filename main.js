@@ -70,6 +70,7 @@ const calculateLabelPrice = (label) => {
 
 const calculateTravelPrice = (travelTicket) => {
   const pricesPerZonesPerYear = {
+    0: 0,
     1: 590,
     2: 960,
     3: 1420,
