@@ -28,13 +28,15 @@ const inputLabel = async () => {
 
 const inputTravelTicket = async () => {
   return new Promise(done => {
-    readline.question('For how many zones do you need to buy ticket? (0 = no need for ticket, 7 = full city ticket) \n', label => {
+    readline.question('For how many zones do you need to buy ticket? (0 = no need for ticket, 7 = full city ticket) \n', travelTicket => {
+      travelTicket = +travelTicket;
+
       // if ticket is unknown we assume that it is full city ticket
-      if(![0, 1, 2, 3, 4, 5, 6].includes(label)) {
-        label = 'Full city';
+      if(![0, 1, 2, 3, 4, 5, 6].includes(travelTicket)) {
+        travelTicket = 'Full city';
       }
 
-      done(label);
+      done(travelTicket);
     });
   });
 }
