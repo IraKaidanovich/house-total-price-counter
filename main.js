@@ -104,7 +104,8 @@ const main = async () => {
     Travel ticket: ${travelTicket}${travelTicket === 'Full city' ? '' : ' zones'} (${travelPrice} euros),
     Services price: ${priceForServices},
     MoveIn price: ${moveInPrice},
-    Total price: ${Math.round(totalPrice)} euros
+    Total price: ${Math.round(totalPrice)} euros,
+    We will spend: ${totalPrice - 1860} euros more
   `);
 
   readline.close();
