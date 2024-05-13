@@ -85,6 +85,9 @@ const main = async () => {
   const travelTicketMisha = await inputTravelTicket('Misha');
   const travelTicketNataliia = await inputTravelTicket('Nataliia');
   const monthsUntilMoveIn = 1;
+  const currentSpending = 1860;
+  const savingsOfMother = 100;
+  const savingsOfIlliaAndIra = 300;
 
   const labelPrice = calculateLabelPrice(label);
   const travelPriceMisha = calculateTravelPrice(travelTicketMisha);
@@ -93,6 +96,7 @@ const main = async () => {
   const priceForServices = 100; // Ziggo, water, trash etc.
 
   const totalPrice = price + labelPrice + travelPriceMisha + travelPriceNataliia + moveInPrice + priceForServices;
+  const differenceInTotalPrice = currentSpending - totalPrice;
 
   console.log(`
     Rent price: ${price} euros,
@@ -102,7 +106,10 @@ const main = async () => {
     Services price: ${priceForServices},
     MoveIn price: ${moveInPrice},
     Total price: ${Math.round(totalPrice)} euros,
-    We will spend: ${totalPrice - 1860} euros more
+    Nataliia save now: ${savingsOfMother * 12} euros per year,
+    Nataliia will be savings: ${Math.round((savingsOfMother + differenceInTotalPrice * 0.333) * 12)} per year,
+    Illia and Ira save now: ${savingsOfIlliaAndIra * 12} euros per year,
+    Illia and Ira will be savings: ${Math.round((savingsOfIlliaAndIra + differenceInTotalPrice * 0.666) * 12)} per year,
   `);
 
   readline.close();
