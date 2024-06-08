@@ -1,6 +1,7 @@
 import calculateMovingCost from "./calculateMovingCosts";
 import calculateTravelPrice from "./calculateTravelPrice";
 import calculateLabelPrice from "./calculateLabelPrice";
+import { priceForServices } from "./config";
 
 type CalculateCostsParams = {
   price: string;
@@ -22,8 +23,6 @@ const calculateCosts = ({
       `Please provide correct rent price, you provided: "${price}"`
     );
   }
-
-  const priceForServices = 100; // Ziggo, water, trash etc.
 
   const labelPrice = calculateLabelPrice(label);
   const travelPriceMisha = calculateTravelPrice(travelTicketMisha);

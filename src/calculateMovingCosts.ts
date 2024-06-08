@@ -1,3 +1,9 @@
+import {
+  expectedDaysToSignTheContract,
+  minimalTimeToMove,
+  paymentForCurrentFlatPerMonth,
+} from "./config";
+
 const calculateMovingCost = (daysBeforeMoveIn: string) => {
   if (daysBeforeMoveIn.length != (+daysBeforeMoveIn).toString().length) {
     throw new Error(
@@ -5,10 +11,8 @@ const calculateMovingCost = (daysBeforeMoveIn: string) => {
     );
   }
 
-  const paymentForCurrentFlatPerMonth = 1900;
-  const expectedDaysToSignTheContract = 7; // We will be able to give the notice only after signing the contract
   const paidDays = Math.max(
-    15,
+    minimalTimeToMove,
     60 - +daysBeforeMoveIn + expectedDaysToSignTheContract
   );
   const paidMonths = Math.min(paidDays / 30, 2);
