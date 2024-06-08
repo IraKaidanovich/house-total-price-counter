@@ -1,3 +1,4 @@
+import calculateSavings from "./src/calculateSavings";
 import calculateTotalCosts from "./src/calculateTotalCosts";
 import getInputs from "./src/getInputs";
 
@@ -23,17 +24,13 @@ const main = async () => {
     daysBeforeMoveIn,
   });
 
-  const currentSpending = 1860;
-  const savingsOfMother = 100;
-  const savingsOfIlliaAndIra = 300;
-  const sharedSavings = savingsOfMother + savingsOfIlliaAndIra;
-  const weWillBeSavings = (currentSpending - totalCosts + sharedSavings) * 12;
+  const savingsPerYear = calculateSavings(totalCosts);
 
   // calculate notice period of a new flat
 
   console.log(`
     Total price: ${totalCosts} euros,
-    We will be saving: ${weWillBeSavings} euros 
+    We will be saving per year: ${savingsPerYear} euros 
   `);
 
   readline.close();
