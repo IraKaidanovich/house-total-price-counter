@@ -6,10 +6,9 @@ test("cheap flat", () => {
     label: "A",
     travelTicketMisha: "1",
     travelTicketNataliia: "0",
-    daysBeforeMoveIn: "60",
   });
 
-  expect(totalPrice).toBe(1327);
+  expect(totalPrice).toBe(1248);
 });
 
 test("cheap flat with medium move in time", () => {
@@ -18,10 +17,9 @@ test("cheap flat with medium move in time", () => {
     label: "B",
     travelTicketMisha: "0",
     travelTicketNataliia: "0",
-    daysBeforeMoveIn: "30",
   });
 
-  expect(totalPrice).toBe(1507);
+  expect(totalPrice).toBe(1312);
 });
 
 test("slighly more expensive flat with a month of move in time", () => {
@@ -30,10 +28,9 @@ test("slighly more expensive flat with a month of move in time", () => {
     label: "C",
     travelTicketMisha: "0",
     travelTicketNataliia: "0",
-    daysBeforeMoveIn: "20",
   });
 
-  expect(totalPrice).toBe(2178);
+  expect(totalPrice).toBe(1930);
 });
 
 test("expensive flat", () => {
@@ -42,10 +39,9 @@ test("expensive flat", () => {
     label: "C",
     travelTicketMisha: "2",
     travelTicketNataliia: "1",
-    daysBeforeMoveIn: "15",
   });
 
-  expect(totalPrice).toBe(2383);
+  expect(totalPrice).toBe(2109);
 });
 
 test("unexpected price input", () => {

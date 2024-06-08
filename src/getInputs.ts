@@ -21,7 +21,7 @@ const getInputs = async (readline) => {
     readline,
     "How many days we have before moving in? (7 days for signing of the contract included)"
   );
-  const noticePeriod = await userInput(
+  const newFlatNoticePeriod = await userInput(
     readline,
     "What is the notice period of the new flat? (Number of days)"
   );
@@ -32,7 +32,7 @@ const getInputs = async (readline) => {
     travelTicketMisha,
     travelTicketNataliia,
     daysBeforeMoveIn,
-    noticePeriod,
+    newFlatNoticePeriod,
   };
 };
 

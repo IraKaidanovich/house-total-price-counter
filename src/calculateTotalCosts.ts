@@ -1,26 +1,19 @@
-import calculateMovingCost from "./calculateMovingCosts";
 import calculateTravelPrice from "./calculateTravelPrice";
 import calculateLabelPrice from "./calculateLabelPrice";
-import {
-  currentFlatNoticePeriodDays,
-  paymentForCurrentFlatPerMonth,
-  priceForServices,
-} from "./config";
+import { priceForServices } from "./config";
 
 type CalculateCostsParams = {
   price: string;
   label: string;
   travelTicketMisha: string;
   travelTicketNataliia: string;
-  daysBeforeMoveIn: string;
 };
 
-const calculateCosts = ({
+export default ({
   price,
   label,
   travelTicketMisha,
   travelTicketNataliia,
-  daysBeforeMoveIn,
 }: CalculateCostsParams) => {
   if (price.length !== (+price).toString().length) {
     throw new Error(
@@ -31,21 +24,13 @@ const calculateCosts = ({
   const labelPrice = calculateLabelPrice(label);
   const travelPriceMisha = calculateTravelPrice(travelTicketMisha);
   const travelPriceNataliia = calculateTravelPrice(travelTicketNataliia);
-  const moveInPrice = calculateMovingCost(
-    paymentForCurrentFlatPerMonth,
-    daysBeforeMoveIn,
-    currentFlatNoticePeriodDays.toString()
-  );
 
   const totalPrice =
     +price +
     +labelPrice +
     +travelPriceMisha +
     +travelPriceNataliia +
-    +moveInPrice +
     +priceForServices;
 
   return totalPrice;
 };
-
-export default calculateCosts;

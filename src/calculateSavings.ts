@@ -4,11 +4,22 @@ import {
   savingsOfMother,
 } from "./config";
 
-export default (totalCosts: number): number => {
+export default (
+  totalCosts: number,
+  moveOutPricePerMonth: number,
+  currentMoveOutPricePerMonth: number
+): number => {
   const sharedSavings = savingsOfMother + savingsOfIlliaAndIra;
 
-  const weWillBeSavings =
-    (paymentForCurrentFlatPerMonth - totalCosts + sharedSavings) * 12;
+  const howMuchMoveOutPriceCheaper =
+    currentMoveOutPricePerMonth - moveOutPricePerMonth;
 
-  return weWillBeSavings;
+  const weWillBeSavings =
+    (paymentForCurrentFlatPerMonth -
+      totalCosts +
+      sharedSavings +
+      howMuchMoveOutPriceCheaper) *
+    12;
+
+  return Math.round(weWillBeSavings);
 };

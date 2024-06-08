@@ -20,6 +20,10 @@ test("we have 1.5 months to move in", () => {
   expect(calculateMovingCost(1400, "45", "30")).toBe(58);
 });
 
+test('tt', () => {
+  expect(calculateMovingCost(2178))
+});
+
 test("unexpected input", () => {
   expect(() => calculateMovingCost(1800, "45 days", "60")).toThrow(
     'Please provide number for days before moving in, you provided: "45 days"'
