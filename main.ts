@@ -25,8 +25,10 @@ const main = async () => {
     totalCosts,
     newMoveOutPricePerMonth,
     currentMoveOutPricePerMonth,
-    realisticSavingsPerYear,
-    optimisticSavingsPerYear,
+    weSavedWithProvidedMoveDays,
+    weSavedWith45MoveDays,
+    weWillSaveWithProvidedMoveDays,
+    weWillSaveWith45MoveDays,
   } = finalizeCalculations({
     price,
     label,
@@ -36,22 +38,36 @@ const main = async () => {
     newFlatNoticePeriod,
   });
 
-  console.log(`
-    Total price: ${totalCosts} euros (Right now we pay ${paymentForCurrentFlatPerMonth} euros) (Difference: ${
+  console.log(`\n\n\n\n\n\n\n\n\n
+  Total price: ${totalCosts} euros (Right now we pay ${paymentForCurrentFlatPerMonth} euros) (Difference: ${
     totalCosts - paymentForCurrentFlatPerMonth
   }),
-    Move out price (per month): in 1 month - ${
-      newMoveOutPricePerMonth.realistic
-    } euros, in 1.5 months - ${
-    newMoveOutPricePerMonth.optimistic
-  } (For current flat it is in 1 month - ${
-    currentMoveOutPricePerMonth.realistic
-  } euros, in 1.5 month - ${currentMoveOutPricePerMonth.optimistic} euros),
-    Right now we save: Right now we save ${
-      (savingsOfMother + savingsOfIlliaAndIra) * 12
-    } euros,
-    We will be saving per year (optimistic): ${optimisticSavingsPerYear} euros,
-    We will be saving per year (realistic): ${realisticSavingsPerYear} euros
+
+  In provided days (${daysBeforeMoveIn}):
+    Current flat:
+      - Move out price (per month): ${
+        currentMoveOutPricePerMonth.withProvidedDays
+      } euros
+      - We save (per year): ${weSavedWithProvidedMoveDays} euros
+    New flat:
+      - Move out price (per month): ${
+        newMoveOutPricePerMonth.withProvidedDays
+      } euros
+      - We save (per year): ${weWillSaveWithProvidedMoveDays} euros
+    Total savings: ${
+      weSavedWithProvidedMoveDays + weWillSaveWithProvidedMoveDays
+    } euros
+  
+  In 45 days:
+    Current flat:
+    - Move out price (per month): ${
+      currentMoveOutPricePerMonth.with45Days
+    } euros
+    - We save (per year): ${weSavedWith45MoveDays} euros
+    New flat:
+      - Move out price (per month): ${newMoveOutPricePerMonth.with45Days} euros
+      - We save (per year): ${weWillSaveWith45MoveDays} euros
+    Total savings: ${weWillSaveWith45MoveDays + weWillSaveWith45MoveDays} euros
   `);
 
   readline.close();
