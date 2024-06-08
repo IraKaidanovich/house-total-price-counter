@@ -24,16 +24,28 @@ test("cheap flat with medium move in time", () => {
   expect(totalPrice).toBe(1507);
 });
 
+test("slighly more expensive flat with a month of move in time", () => {
+  const totalPrice = calculateCosts({
+    price: "1700",
+    label: "C",
+    travelTicketMisha: "0",
+    travelTicketNataliia: "0",
+    daysBeforeMoveIn: "20",
+  });
+
+  expect(totalPrice).toBe(2178);
+});
+
 test("expensive flat", () => {
   const totalPrice = calculateCosts({
-    price: "1550",
+    price: "1750",
     label: "C",
     travelTicketMisha: "2",
     travelTicketNataliia: "1",
     daysBeforeMoveIn: "15",
   });
 
-  expect(totalPrice).toBe(2183);
+  expect(totalPrice).toBe(2383);
 });
 
 test("unexpected price input", () => {

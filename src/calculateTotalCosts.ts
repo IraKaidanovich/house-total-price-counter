@@ -1,7 +1,11 @@
 import calculateMovingCost from "./calculateMovingCosts";
 import calculateTravelPrice from "./calculateTravelPrice";
 import calculateLabelPrice from "./calculateLabelPrice";
-import { priceForServices } from "./config";
+import {
+  currentFlatNoticePeriodDays,
+  paymentForCurrentFlatPerMonth,
+  priceForServices,
+} from "./config";
 
 type CalculateCostsParams = {
   price: string;
@@ -27,7 +31,11 @@ const calculateCosts = ({
   const labelPrice = calculateLabelPrice(label);
   const travelPriceMisha = calculateTravelPrice(travelTicketMisha);
   const travelPriceNataliia = calculateTravelPrice(travelTicketNataliia);
-  const moveInPrice = calculateMovingCost(daysBeforeMoveIn);
+  const moveInPrice = calculateMovingCost(
+    paymentForCurrentFlatPerMonth,
+    daysBeforeMoveIn,
+    currentFlatNoticePeriodDays.toString()
+  );
 
   const totalPrice =
     +price +

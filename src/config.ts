@@ -8,6 +8,17 @@ export const pricesPerLabel = {
   G: 307,
 };
 
+export const pricesPerZonesPerYear = {
+  0: 0,
+  1: 590,
+  2: 960,
+  3: 1420,
+  4: 1890,
+  5: 2360,
+  6: 2840,
+  "Full city": 3354,
+};
+
 export const expectedDaysToSignTheContract = 7; // We will be able to give the notice only after signing the contract
 
 export const paymentForCurrentFlatPerMonth = 1900; // Including rent, utilities and services (Taxes will be the same in both places)
@@ -18,3 +29,5 @@ export const minimalTimeToMove = 15; // We still need some time to move to anoth
 
 export const savingsOfMother = 100;
 export const savingsOfIlliaAndIra = 300;
+
+export const currentFlatNoticePeriodDays = 60;

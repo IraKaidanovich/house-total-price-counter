@@ -1,23 +1,29 @@
-import {
-  expectedDaysToSignTheContract,
-  minimalTimeToMove,
-  paymentForCurrentFlatPerMonth,
-} from "./config";
+import { expectedDaysToSignTheContract, minimalTimeToMove } from "./config";
 
-const calculateMovingCost = (daysBeforeMoveIn: string) => {
+const calculateMovingCost = (
+  pricePerMonth: number,
+  daysBeforeMoveIn: string,
+  noticePeriodDays: string
+) => {
   if (daysBeforeMoveIn.length != (+daysBeforeMoveIn).toString().length) {
     throw new Error(
       `Please provide number for days before moving in, you provided: "${daysBeforeMoveIn}"`
     );
   }
 
+  if (noticePeriodDays.length != (+noticePeriodDays).toString().length) {
+    throw new Error(
+      `Please provide number for notice period days, you provided: "${noticePeriodDays}"`
+    );
+  }
+
   const paidDays = Math.max(
     minimalTimeToMove,
-    60 - +daysBeforeMoveIn + expectedDaysToSignTheContract
+    +noticePeriodDays - +daysBeforeMoveIn + expectedDaysToSignTheContract
   );
-  const paidMonths = Math.min(paidDays / 30, 2);
+  const paidMonths = Math.min(paidDays / 30, +noticePeriodDays / 30);
 
-  return Math.round((paymentForCurrentFlatPerMonth * paidMonths) / 12);
+  return Math.round((pricePerMonth * paidMonths) / 12);
 };
 
 export default calculateMovingCost;
