@@ -27,6 +27,9 @@ const main = async () => {
       newFlatNoticePeriod,
     });
 
+  const totalPriceDifference = config.paymentForCurrentFlat - totalCosts;
+  const moveOutPriceDifference = currentMoveOutPrice - newMoveOutPrice;
+
   const totalDifference =
     config.paymentForCurrentFlat +
     currentMoveOutPrice -
@@ -38,12 +41,12 @@ const main = async () => {
       - Total price: ${config.paymentForCurrentFlat} euros
       - Move out price (per month): ${currentMoveOutPrice} euros
     New flat:
-      - Total price: ${totalCosts} euros (Difference: ${
-    config.paymentForCurrentFlat - totalCosts
+      - Total price: ${totalCosts} euros (${Math.abs(totalPriceDifference)} ${
+    totalPriceDifference < 0 ? "more expensive" : "cheaper"
   } euros)
-      - Move out price (per month): ${newMoveOutPrice} euros (Difference: ${
-    currentMoveOutPrice - newMoveOutPrice
-  } euros)
+      - Move out price (per month): ${newMoveOutPrice} euros (${Math.abs(
+    moveOutPriceDifference
+  )} ${moveOutPriceDifference < 0 ? "more expensive" : "cheaper"} euros)
     Total difference: ${Math.abs(totalDifference)} euros ${
     totalDifference > 0 ? "cheaper" : "more expensive"
   }
