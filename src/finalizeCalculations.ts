@@ -6,19 +6,6 @@ import {
 } from "./config";
 import calculateSavings from "./calculateSavings";
 
-const providedAnd45DaysMovePrice = (
-  costPerMonth: number,
-  daysBeforeMoveIn: string,
-  noticePeriodDays: string
-): {
-  withProvidedDays: number;
-  with45Days: number;
-} => ({
-  withProvidedDays:
-    calculateMovingCost(costPerMonth, daysBeforeMoveIn, noticePeriodDays) / 12,
-  with45Days: calculateMovingCost(costPerMonth, "45", noticePeriodDays) / 12,
-});
-
 type Params = {
   price: string;
   label: string;
@@ -43,50 +30,27 @@ export default ({
     travelTicketNataliia,
   });
 
-  const newMoveOutPricePerMonth = providedAnd45DaysMovePrice(
-    totalCosts,
-    daysBeforeMoveIn,
-    newFlatNoticePeriod
-  );
+  const newMoveOutPricePerMonth =
+    calculateMovingCost(totalCosts, daysBeforeMoveIn, newFlatNoticePeriod) / 12;
 
-  const currentMoveOutPricePerMonth = providedAnd45DaysMovePrice(
-    paymentForCurrentFlatPerMonth,
-    daysBeforeMoveIn,
-    currentFlatNoticePeriodDays.toString()
-  );
+  const currentMoveOutPricePerMonth =
+    calculateMovingCost(
+      paymentForCurrentFlatPerMonth,
+      daysBeforeMoveIn,
+      currentFlatNoticePeriodDays.toString()
+    ) / 12;
 
-  const weSavedWithProvidedMoveDays = calculateSavings(
+  const weSaved = calculateSavings(
     paymentForCurrentFlatPerMonth,
-    currentMoveOutPricePerMonth.withProvidedDays
+    currentMoveOutPricePerMonth
   );
-  const weSavedWith45MoveDays = calculateSavings(
-    paymentForCurrentFlatPerMonth,
-    currentMoveOutPricePerMonth.with45Days
-  );
-  const weWillSaveWithProvidedMoveDays = calculateSavings(
-    totalCosts,
-    newMoveOutPricePerMonth.withProvidedDays
-  );
-  const weWillSaveWith45MoveDays = calculateSavings(
-    totalCosts,
-    newMoveOutPricePerMonth.with45Days
-  );
+  const weWillSave = calculateSavings(totalCosts, newMoveOutPricePerMonth);
 
   return {
     totalCosts,
-    newMoveOutPricePerMonth: {
-      withProvidedDays: Math.round(newMoveOutPricePerMonth.withProvidedDays),
-      with45Days: Math.round(newMoveOutPricePerMonth.with45Days),
-    },
-    currentMoveOutPricePerMonth: {
-      withProvidedDays: Math.round(
-        currentMoveOutPricePerMonth.withProvidedDays
-      ),
-      with45Days: Math.round(currentMoveOutPricePerMonth.with45Days),
-    },
-    weSavedWithProvidedMoveDays,
-    weSavedWith45MoveDays,
-    weWillSaveWithProvidedMoveDays,
-    weWillSaveWith45MoveDays,
+    newMoveOutPricePerMonth: Math.round(newMoveOutPricePerMonth),
+    currentMoveOutPricePerMonth: Math.round(currentMoveOutPricePerMonth),
+    weSaved,
+    weWillSave,
   };
 };
