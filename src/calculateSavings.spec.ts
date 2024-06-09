@@ -1,13 +1,21 @@
 import calculateSavings from "./calculateSavings";
 
 test("cheap flat", () => {
-  expect(calculateSavings(1000, 100)).toBe(14400);
+  expect(
+    calculateSavings({
+      newFlatTotalPricePerMonth: 1000,
+      currentMoveOutPricePerMonth: 150,
+      newMoveOutPricePerMonth: 50,
+    })
+  ).toBe(12720);
 });
 
 test("expensive flat", () => {
-  expect(calculateSavings(2100, 75)).toBe(1500);
-});
-
-test("too expensive flat", () => {
-  expect(calculateSavings(3000, 150)).toBe(-10200);
+  expect(
+    calculateSavings({
+      newFlatTotalPricePerMonth: 1900,
+      currentMoveOutPricePerMonth: 300,
+      newMoveOutPricePerMonth: 75,
+    })
+  ).toBe(-180);
 });

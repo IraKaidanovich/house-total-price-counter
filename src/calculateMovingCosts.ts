@@ -23,7 +23,7 @@ const calculateMovingCost = (
   );
   const paidMonths = Math.min(paidDays / 30, +noticePeriodDays / 30);
 
-  return pricePerMonth * paidMonths;
+  return (pricePerMonth * paidMonths) / 12;
 };
 
 export default calculateMovingCost;

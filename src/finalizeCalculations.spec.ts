@@ -5,7 +5,6 @@ test("cheap flat", () => {
     totalCosts,
     newMoveOutPricePerMonth,
     currentMoveOutPricePerMonth,
-    weSaved,
     weWillSave,
   } = finalizeCalculations({
     price: "1300",
@@ -17,10 +16,7 @@ test("cheap flat", () => {
   });
 
   expect(totalCosts).toBe(1548);
-  expect(currentMoveOutPricePerMonth).toBe(195);
+  expect(currentMoveOutPricePerMonth).toBe(191);
   expect(newMoveOutPricePerMonth).toBe(65);
-  expect(weSaved).toBe(2457);
-  expect(weWillSave).toBe(8250);
+  expect(weWillSave).toBe(5476);
 });
-
-test("expensive flat", () => {});

@@ -1,27 +1,23 @@
 import calculateMovingCost from "./calculateMovingCosts";
 
 test("we have plenty of time", () => {
-  expect(calculateMovingCost(1900, "70", "60")).toBe(79);
-  expect(calculateMovingCost(1900, "70", "30")).toBe(79);
+  expect(Math.round(calculateMovingCost(1900, "70", "60"))).toBe(79);
+  expect(Math.round(calculateMovingCost(1900, "70", "30"))).toBe(79);
 });
 
 test("we have to move in today", () => {
-  expect(calculateMovingCost(2150, "0", "60")).toBe(358);
-  expect(calculateMovingCost(2150, "0", "30")).toBe(179);
+  expect(Math.round(calculateMovingCost(2150, "0", "60"))).toBe(358);
+  expect(Math.round(calculateMovingCost(2150, "0", "30"))).toBe(179);
 });
 
 test("we have a month to move in", () => {
-  expect(calculateMovingCost(1720, "30", "60")).toBe(177);
-  expect(calculateMovingCost(1720, "30", "30")).toBe(72);
+  expect(Math.round(calculateMovingCost(1720, "30", "60"))).toBe(177);
+  expect(Math.round(calculateMovingCost(1720, "30", "30"))).toBe(72);
 });
 
 test("we have 1.5 months to move in", () => {
-  expect(calculateMovingCost(1400, "45", "60")).toBe(86);
-  expect(calculateMovingCost(1400, "45", "30")).toBe(58);
-});
-
-test('tt', () => {
-  expect(calculateMovingCost(2178))
+  expect(Math.round(calculateMovingCost(1400, "45", "60"))).toBe(86);
+  expect(Math.round(calculateMovingCost(1400, "45", "30"))).toBe(58);
 });
 
 test("unexpected input", () => {

@@ -30,27 +30,28 @@ export default ({
     travelTicketNataliia,
   });
 
-  const newMoveOutPricePerMonth =
-    calculateMovingCost(totalCosts, daysBeforeMoveIn, newFlatNoticePeriod) / 12;
-
-  const currentMoveOutPricePerMonth =
-    calculateMovingCost(
-      paymentForCurrentFlatPerMonth,
-      daysBeforeMoveIn,
-      currentFlatNoticePeriodDays.toString()
-    ) / 12;
-
-  const weSaved = calculateSavings(
-    paymentForCurrentFlatPerMonth,
-    currentMoveOutPricePerMonth
+  const newMoveOutPricePerMonth = calculateMovingCost(
+    totalCosts,
+    daysBeforeMoveIn,
+    newFlatNoticePeriod
   );
-  const weWillSave = calculateSavings(totalCosts, newMoveOutPricePerMonth);
+
+  const currentMoveOutPricePerMonth = calculateMovingCost(
+    paymentForCurrentFlatPerMonth,
+    daysBeforeMoveIn,
+    currentFlatNoticePeriodDays.toString()
+  );
+
+  const weWillSave = calculateSavings({
+    newFlatTotalPricePerMonth: totalCosts,
+    newMoveOutPricePerMonth: newMoveOutPricePerMonth,
+    currentMoveOutPricePerMonth: currentMoveOutPricePerMonth,
+  });
 
   return {
     totalCosts,
     newMoveOutPricePerMonth: Math.round(newMoveOutPricePerMonth),
     currentMoveOutPricePerMonth: Math.round(currentMoveOutPricePerMonth),
-    weSaved,
     weWillSave,
   };
 };

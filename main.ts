@@ -1,8 +1,4 @@
-import {
-  paymentForCurrentFlatPerMonth,
-  savingsOfIlliaAndIra,
-  savingsOfMother,
-} from "./src/config";
+import { paymentForCurrentFlatPerMonth } from "./src/config";
 import finalizeCalculations from "./src/finalizeCalculations";
 import getInputs from "./src/getInputs";
 
@@ -25,7 +21,6 @@ const main = async () => {
     totalCosts,
     newMoveOutPricePerMonth,
     currentMoveOutPricePerMonth,
-    weSaved,
     weWillSave,
   } = finalizeCalculations({
     price,
@@ -44,9 +39,8 @@ const main = async () => {
   console.log(`\n\n\n\n\n\n\n\n\n
   In provided move out days (${daysBeforeMoveIn}):
     Current flat:
-    - Total price: ${paymentForCurrentFlatPerMonth} euros
-    - Move out price (per month): ${currentMoveOutPricePerMonth} euros
-    - We save (per year): ${weSaved} euros
+      - Total price: ${paymentForCurrentFlatPerMonth} euros
+      - Move out price (per month): ${currentMoveOutPricePerMonth} euros
     New flat:
       - Total price: ${totalCosts} euros (Difference: ${
     paymentForCurrentFlatPerMonth - totalCosts
@@ -54,11 +48,10 @@ const main = async () => {
       - Move out price (per month): ${newMoveOutPricePerMonth} euros (Difference: ${
     currentMoveOutPricePerMonth - newMoveOutPricePerMonth
   } euros)
-      - We will save (per year): ${weWillSave} euros
     Total difference: ${Math.abs(totalDifference)} euros ${
     totalDifference > 0 ? "cheaper" : "more expensive"
   }
-    Total savings (two years): ${weSaved + weWillSave} euros
+    Total savings (in a year, after we move out from the new flat): ${weWillSave} euros
   `);
 
   readline.close();
