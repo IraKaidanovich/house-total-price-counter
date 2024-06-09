@@ -1,4 +1,4 @@
-import { expectedDaysToSignTheContract, minimalTimeToMove } from "./config";
+import config from "../config";
 
 const calculateMovingCost = (
   pricePerMonth: number,
@@ -18,12 +18,12 @@ const calculateMovingCost = (
   }
 
   const paidDays = Math.max(
-    minimalTimeToMove,
-    +noticePeriodDays - +daysBeforeMoveIn + expectedDaysToSignTheContract
+    config.minimalTimeToMove,
+    +noticePeriodDays - +daysBeforeMoveIn + config.expectedDaysToSignTheContract
   );
   const paidMonths = Math.min(paidDays / 30, +noticePeriodDays / 30);
 
-  return (pricePerMonth * paidMonths) / 12;
+  return Math.round((pricePerMonth * paidMonths) / 12);
 };
 
 export default calculateMovingCost;

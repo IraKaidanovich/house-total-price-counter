@@ -1,10 +1,7 @@
 import calculateTotalCosts from "./calculateTotalCosts";
 import calculateMovingCost from "./calculateMovingCosts";
-import {
-  paymentForCurrentFlatPerMonth,
-  currentFlatNoticePeriodDays,
-} from "./config";
-import calculateSavings from "./calculateSavings";
+import config from "../config";
+import calculateTwoYearsSavings from "./calculateTwoYearsSavings";
 
 type Params = {
   price: string;
@@ -30,28 +27,28 @@ export default ({
     travelTicketNataliia,
   });
 
-  const newMoveOutPricePerMonth = calculateMovingCost(
+  const newMoveOutPrice = calculateMovingCost(
     totalCosts,
     daysBeforeMoveIn,
     newFlatNoticePeriod
   );
 
-  const currentMoveOutPricePerMonth = calculateMovingCost(
-    paymentForCurrentFlatPerMonth,
+  const currentMoveOutPrice = calculateMovingCost(
+    config.paymentForCurrentFlat,
     daysBeforeMoveIn,
-    currentFlatNoticePeriodDays.toString()
+    config.currentFlatNoticePeriodDays.toString()
   );
 
-  const weWillSave = calculateSavings({
-    newFlatTotalPricePerMonth: totalCosts,
-    newMoveOutPricePerMonth: newMoveOutPricePerMonth,
-    currentMoveOutPricePerMonth: currentMoveOutPricePerMonth,
+  const weWillSave = calculateTwoYearsSavings({
+    newFlatTotalPrice: totalCosts,
+    newMoveOutPrice,
+    currentMoveOutPrice,
   });
 
   return {
     totalCosts,
-    newMoveOutPricePerMonth: Math.round(newMoveOutPricePerMonth),
-    currentMoveOutPricePerMonth: Math.round(currentMoveOutPricePerMonth),
+    newMoveOutPrice,
+    currentMoveOutPrice,
     weWillSave,
   };
 };

@@ -1,6 +1,5 @@
 import calculateTravelPrice from "./calculateTravelPrice";
 import calculateLabelPrice from "./calculateLabelPrice";
-import { priceForServices } from "./config";
 
 type CalculateCostsParams = {
   price: string;
@@ -26,11 +25,7 @@ export default ({
   const travelPriceNataliia = calculateTravelPrice(travelTicketNataliia);
 
   const totalPrice =
-    +price +
-    +labelPrice +
-    +travelPriceMisha +
-    +travelPriceNataliia +
-    +priceForServices;
+    +price + +labelPrice + +travelPriceMisha + +travelPriceNataliia;
 
   return totalPrice;
 };

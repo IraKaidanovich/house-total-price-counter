@@ -2,13 +2,13 @@ import calculateTravelPrice from "./calculateTravelPrice";
 
 test("all zones and full city", () => {
   expect(calculateTravelPrice("0")).toBe(0);
-  expect(calculateTravelPrice("1")).toBe(49);
-  expect(calculateTravelPrice("2")).toBe(80);
-  expect(calculateTravelPrice("3")).toBe(118);
-  expect(calculateTravelPrice("4")).toBe(158);
-  expect(calculateTravelPrice("5")).toBe(197);
-  expect(calculateTravelPrice("6")).toBe(237);
-  expect(calculateTravelPrice("7")).toBe(280);
+  expect(calculateTravelPrice("1")).toBe(100);
+  expect(calculateTravelPrice("2")).toBe(200);
+  expect(calculateTravelPrice("3")).toBe(300);
+  expect(calculateTravelPrice("4")).toBe(400);
+  expect(calculateTravelPrice("5")).toBe(500);
+  expect(calculateTravelPrice("6")).toBe(600);
+  expect(calculateTravelPrice("7")).toBe(700);
 });
 
 test("unexpected input", () => {

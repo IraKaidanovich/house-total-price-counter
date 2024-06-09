@@ -8,7 +8,7 @@ test("cheap flat", () => {
     travelTicketNataliia: "0",
   });
 
-  expect(totalPrice).toBe(1248);
+  expect(totalPrice).toBe(1200);
 });
 
 test("cheap flat with medium move in time", () => {
@@ -19,7 +19,7 @@ test("cheap flat with medium move in time", () => {
     travelTicketNataliia: "0",
   });
 
-  expect(totalPrice).toBe(1312);
+  expect(totalPrice).toBe(1300);
 });
 
 test("slighly more expensive flat with a month of move in time", () => {
@@ -30,7 +30,7 @@ test("slighly more expensive flat with a month of move in time", () => {
     travelTicketNataliia: "0",
   });
 
-  expect(totalPrice).toBe(1930);
+  expect(totalPrice).toBe(2000);
 });
 
 test("expensive flat", () => {
@@ -41,7 +41,7 @@ test("expensive flat", () => {
     travelTicketNataliia: "1",
   });
 
-  expect(totalPrice).toBe(2109);
+  expect(totalPrice).toBe(2350);
 });
 
 test("unexpected price input", () => {
@@ -57,5 +57,3 @@ test("unexpected price input", () => {
     'Please provide correct rent price, you provided: "123 unexpectedInput"'
   );
 });
-
-test;
