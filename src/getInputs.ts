@@ -17,22 +17,12 @@ const getInputs = async (readline) => {
     readline,
     "For how many zones do you need to buy ticket for Nataliia? (0 = no need for ticket, 7 = full city ticket)"
   );
-  const daysBeforeMoveIn = await userInput(
-    readline,
-    "How many days we have before moving in? (7 days for signing of the contract included)"
-  );
-  const newFlatNoticePeriod = await userInput(
-    readline,
-    "What is the notice period of the new flat? (Number of days)"
-  );
 
   return {
     price,
     label,
     travelTicketMisha,
     travelTicketNataliia,
-    daysBeforeMoveIn,
-    newFlatNoticePeriod,
   };
 };
 

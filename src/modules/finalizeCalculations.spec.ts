@@ -19,4 +19,4 @@ test("random flat", () => {
   expect(currentMoveOutPrice).toBe(181);
   expect(newMoveOutPrice).toBe(73);
   expect(weWillSave).toBe(7008);
-});w
+});
