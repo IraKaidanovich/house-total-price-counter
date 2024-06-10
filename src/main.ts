@@ -5,14 +5,14 @@ import openHtml from "open-html";
 import styles from "./styles";
 
 const moveOutDays = [0, 7, 15, 30, 45, 60];
-const noticePeriods = [0, 30, 45, 60];
+const noticePeriods = [30, 60];
 
 const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-const generateTable = (result) => {
+const generateResultsTable = (result) => {
   let lastRow;
   let rowsHtml = "";
   for (let daysBeforeMoveIn in result) {
@@ -30,10 +30,10 @@ const generateTable = (result) => {
 
   let headersHtml = "";
   for (let noticeDays in lastRow) {
-    headersHtml += `<th>Notice of ${noticeDays} days</th>`;
+    headersHtml += `<th>New flat notice of ${noticeDays} days</th>`;
   }
 
-  openHtml(`
+  return `
     <style>${styles}</style>
     <table>
       <thead>
@@ -46,7 +46,33 @@ const generateTable = (result) => {
         ${rowsHtml}
       </tbody>
     </table>  
-  `);
+  `;
+};
+
+const generateInputsTable = ({
+  price,
+  label,
+  travelTicketMisha,
+  travelTicketNataliia,
+}) => {
+  return `
+    <table>
+      <thead>
+        <th>Properties -></th>
+        <th>Price</th>
+        <th>Label</th>
+        <th>Travel ticket for Misha</th>
+        <th>Travel ticket for Nataliia</th>
+      </thead>
+      <tbody>
+        <td>Inputs -></td>
+        <td>${price} euros</td>
+        <td>${label.toUpperCase()}</td>
+        <td>${travelTicketMisha} zones</td>
+        <td>${travelTicketNataliia} zones</td>
+      </tbody>
+    </table>
+  `;
 };
 
 const main = async () => {
@@ -81,33 +107,15 @@ const main = async () => {
     results[daysToMoveOut] = result;
   });
 
-  // const totalPriceDifference = config.paymentForCurrentFlat - totalCosts;
-  // const moveOutPriceDifference = currentMoveOutPrice - newMoveOutPrice;
+  const resultsHtml = generateResultsTable(results);
+  const inputsHtml = generateInputsTable({
+    price,
+    label,
+    travelTicketMisha,
+    travelTicketNataliia,
+  });
 
-  // const totalDifference =
-  //   config.paymentForCurrentFlat +
-  //   currentMoveOutPrice -
-  //   (totalCosts + newMoveOutPrice);
-
-  generateTable(results);
-
-  // console.log(`\n\n\n\n\n\n\n\n\n
-  // In provided move out days (${daysBeforeMoveIn}):
-  //   Current flat:
-  //     - Total price: ${config.paymentForCurrentFlat} euros
-  //     - Move out price (per month): ${currentMoveOutPrice} euros
-  //   New flat:
-  //     - Total price: ${totalCosts} euros (${Math.abs(totalPriceDifference)} ${
-  //   totalPriceDifference < 0 ? "more expensive" : "cheaper"
-  // } euros)
-  //     - Move out price (per month): ${newMoveOutPrice} euros (${Math.abs(
-  //   moveOutPriceDifference
-  // )} ${moveOutPriceDifference < 0 ? "more expensive" : "cheaper"} euros)
-  //   Total difference: ${Math.abs(totalDifference)} euros ${
-  //   totalDifference > 0 ? "cheaper" : "more expensive"
-  // }
-  //   Total savings (in two years from now): ${weWillSave} euros
-  // `);
+  openHtml(inputsHtml + resultsHtml);
 
   readline.close();
 };
