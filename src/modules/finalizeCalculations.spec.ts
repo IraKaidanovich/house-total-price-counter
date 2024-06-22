@@ -13,11 +13,12 @@ test('random flat', () => {
     newFlatNoticePeriod: 30,
     label: 'B',
     daysBeforeMoveIn: 30,
-    livingMonths: 18
+    livingMonths: 18,
+    oneTimeCosts: 500
   })
 
   expect(totalCosts).toBe(1741)
   expect(currentMoveOutPrice).toBe(2171)
   expect(newMoveOutPrice).toBe(871)
-  expect(weWillSave).toBe(4500)
+  expect(weWillSave).toBe(4000)
 })

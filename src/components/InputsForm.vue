@@ -2,8 +2,14 @@
 import { storeToRefs } from 'pinia'
 import { useStore } from '@/store'
 
-const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingMonths } =
-  storeToRefs(useStore())
+const {
+  flatPrice,
+  energyLabel,
+  travelTicketMisha,
+  travelTicketNataliia,
+  livingMonths,
+  oneTimeCosts
+} = storeToRefs(useStore())
 </script>
 
 <template>
@@ -105,6 +111,15 @@ const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingM
             validation="min:12"
           />
         </div>
+
+        <div class="form__input">
+          <FormKit
+            type="number"
+            label="One-time costs"
+            v-model="oneTimeCosts"
+            validation="min:12"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -113,9 +128,6 @@ const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingM
 <style lang="scss" scoped>
 .form {
   padding: 20px 0;
-
-  &__flat-details {
-  }
 
   &__inputs {
     display: flex;

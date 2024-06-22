@@ -26,7 +26,8 @@ const getResults = () => {
         travelTicketNataliia: store.travelTicketNataliia,
         daysBeforeMoveIn: daysToMoveOut,
         newFlatNoticePeriod: noticePeriod,
-        livingMonths: store.livingMonths
+        livingMonths: store.livingMonths,
+        oneTimeCosts: store.oneTimeCosts
       })
 
       result[noticePeriod] = calculation

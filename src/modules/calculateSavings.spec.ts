@@ -7,7 +7,8 @@ test('cheap flat', () => {
       newFlatTotalPrice: 1900,
       currentMoveOutPrice: 1500,
       newMoveOutPrice: 500,
-      livingMonths: 30
+      livingMonths: 30,
+      oneTimeCosts: 0
     })
   ).toBe(16000)
 })
@@ -18,7 +19,8 @@ test('expensive flat', () => {
       newFlatTotalPrice: 2100,
       currentMoveOutPrice: 3000,
       newMoveOutPrice: 2500,
-      livingMonths: 12
+      livingMonths: 12,
+      oneTimeCosts: 1500
     })
-  ).toBe(-700)
+  ).toBe(-2200)
 })

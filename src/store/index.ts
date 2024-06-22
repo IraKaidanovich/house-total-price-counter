@@ -7,6 +7,7 @@ export const useStore = defineStore('main', () => {
   const travelTicketMisha = ref(null as number)
   const travelTicketNataliia = ref(null as number)
   const livingMonths = ref(null as number)
+  const oneTimeCosts = ref(0)
 
   const isFormFilledIn = computed(() => {
     return (
@@ -24,6 +25,7 @@ export const useStore = defineStore('main', () => {
     travelTicketMisha,
     travelTicketNataliia,
     livingMonths,
-    isFormFilledIn
+    isFormFilledIn,
+    oneTimeCosts
   }
 })
