@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useStore } from '@/store'
 
-const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingYears } =
+const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingMonths } =
   storeToRefs(useStore())
 </script>
 
@@ -30,6 +30,15 @@ const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingY
             :disabled="true"
           />
         </div>
+
+        <div class="form__input">
+          <FormKit
+            type="text"
+            label="Shared savings (Per month)"
+            :value="'400 euros'"
+            :disabled="true"
+          />
+        </div>
       </div>
     </div>
 
@@ -45,7 +54,7 @@ const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingY
           <FormKit
             type="select"
             label="Energy label"
-            :options="['A', 'B', 'C', 'D', 'E', 'F', 'G']"
+            :options="['', 'A', 'B', 'C', 'D', 'E', 'F', 'G']"
             v-model="energyLabel"
           />
         </div>
@@ -65,6 +74,7 @@ const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingY
               7: 'Full city'
             }"
             v-model="travelTicketMisha"
+            :placeholder="' '"
           />
         </div>
 
@@ -83,14 +93,16 @@ const { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingY
               7: 'Full city'
             }"
             v-model="travelTicketNataliia"
+            :placeholder="' '"
           />
         </div>
 
         <div class="form__input">
           <FormKit
             type="number"
-            label="How much years will you live there?"
-            v-model="livingYears"
+            label="How much months will you live there?"
+            v-model="livingMonths"
+            validation="min:12"
           />
         </div>
       </div>

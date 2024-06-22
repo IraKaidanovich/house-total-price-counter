@@ -8,20 +8,18 @@ export default ({
   newFlatTotalPrice,
   newMoveOutPrice,
   currentMoveOutPrice,
-  livingYears
+  livingMonths
 }: {
   newFlatTotalPrice: number
   newMoveOutPrice: number
   currentMoveOutPrice: number
-  livingYears: number
+  livingMonths: number
 }): number => {
   const savedFromFlatExpenses = config.paymentForCurrentFlat - newFlatTotalPrice
 
   const lostFromMovings = currentMoveOutPrice + newMoveOutPrice
 
-  const livingMonths = 12 * livingYears
-
-  console.log(livingMonths)
+  console.log(newFlatTotalPrice, newMoveOutPrice, currentMoveOutPrice, livingMonths)
 
   return (
     savedFromFlatExpenses * livingMonths + config.sharedSavings * livingMonths - lostFromMovings

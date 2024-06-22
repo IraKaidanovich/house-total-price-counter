@@ -1,12 +1,29 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('main', () => {
-  const flatPrice = ref(0)
-  const energyLabel = ref('A')
-  const travelTicketMisha = ref(0)
-  const travelTicketNataliia = ref(0)
-  const livingYears = ref(0)
+  const flatPrice = ref(null as number)
+  const energyLabel = ref(null as string)
+  const travelTicketMisha = ref(null as number)
+  const travelTicketNataliia = ref(null as number)
+  const livingMonths = ref(null as number)
 
-  return { flatPrice, energyLabel, travelTicketMisha, travelTicketNataliia, livingYears }
+  const isFormFilledIn = computed(() => {
+    return (
+      flatPrice.value !== null &&
+      energyLabel.value !== null &&
+      travelTicketMisha.value !== null &&
+      travelTicketNataliia.value !== null &&
+      livingMonths.value !== null
+    )
+  })
+
+  return {
+    flatPrice,
+    energyLabel,
+    travelTicketMisha,
+    travelTicketNataliia,
+    livingMonths,
+    isFormFilledIn
+  }
 })

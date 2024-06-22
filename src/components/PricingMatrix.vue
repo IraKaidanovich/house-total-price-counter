@@ -8,7 +8,7 @@ const store = useStore()
 const moveOutDays = [0, 7, 15, 30, 45, 60]
 const noticePeriods = [30, 60]
 
-const getResults = ({ price, label, travelTicketMisha, travelTicketNataliia, livingYears }) => {
+const getResults = () => {
   const results: {
     [key: string]: {
       [key: string]: ReturnType<typeof finalizeCalculations>
@@ -20,13 +20,13 @@ const getResults = ({ price, label, travelTicketMisha, travelTicketNataliia, liv
 
     noticePeriods.forEach((noticePeriod) => {
       const calculation = finalizeCalculations({
-        price,
-        label,
-        travelTicketMisha,
-        travelTicketNataliia,
+        price: store.flatPrice,
+        label: store.energyLabel,
+        travelTicketMisha: store.travelTicketMisha,
+        travelTicketNataliia: store.travelTicketNataliia,
         daysBeforeMoveIn: daysToMoveOut,
         newFlatNoticePeriod: noticePeriod,
-        livingYears
+        livingMonths: store.livingMonths
       })
 
       result[noticePeriod] = calculation
@@ -38,15 +38,7 @@ const getResults = ({ price, label, travelTicketMisha, travelTicketNataliia, liv
   return results
 }
 
-const calculationsResults = computed(() =>
-  getResults({
-    price: store.flatPrice,
-    label: store.energyLabel,
-    travelTicketMisha: store.travelTicketMisha,
-    travelTicketNataliia: store.travelTicketNataliia,
-    livingYears: store.livingYears
-  })
-)
+const calculationsResults = computed(() => getResults())
 </script>
 
 <template>

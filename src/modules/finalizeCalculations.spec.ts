@@ -13,7 +13,7 @@ test('random flat', () => {
     newFlatNoticePeriod: 30,
     label: 'B',
     daysBeforeMoveIn: 30,
-    livingYears: 1.5
+    livingMonths: 18
   })
 
   expect(totalCosts).toBe(1741)

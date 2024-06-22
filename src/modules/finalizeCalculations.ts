@@ -10,7 +10,7 @@ type Params = {
   travelTicketNataliia: number
   daysBeforeMoveIn: number
   newFlatNoticePeriod: number
-  livingYears: number
+  livingMonths: number
 }
 
 export default ({
@@ -20,7 +20,7 @@ export default ({
   travelTicketNataliia,
   daysBeforeMoveIn,
   newFlatNoticePeriod,
-  livingYears
+  livingMonths
 }: Params) => {
   const totalCosts = calculateTotalCosts({
     price,
@@ -41,7 +41,7 @@ export default ({
     newFlatTotalPrice: totalCosts,
     newMoveOutPrice,
     currentMoveOutPrice,
-    livingYears
+    livingMonths
   })
 
   return {
