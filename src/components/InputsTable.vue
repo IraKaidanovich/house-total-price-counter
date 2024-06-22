@@ -1,10 +1,23 @@
-export default `body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f4f4f9;
-}
+<template>
+  <table>
+    <thead>
+      <th>Properties -></th>
+      <th>Price</th>
+      <th>Label</th>
+      <th>Travel ticket for Misha</th>
+      <th>Travel ticket for Nataliia</th>
+    </thead>
+    <tbody>
+      <td>Inputs -></td>
+      <td>${price} euros</td>
+      <td>${label.toUpperCase()}</td>
+      <td>${travelTicketMisha} zones</td>
+      <td>${travelTicketNataliia} zones</td>
+    </tbody>
+  </table>
+</template>
 
+<style lang="scss" scoped>
 table {
   border-collapse: collapse;
   margin: 25px 0;
@@ -66,7 +79,6 @@ td:first-child {
   text-align: left;
 }
 
-
 td:not(:first-child) {
   font-size: 0.9em;
   line-height: 1.6;
@@ -77,4 +89,5 @@ caption {
   padding: 10px;
   font-style: italic;
   color: #666;
-}`;
+}
+</style>

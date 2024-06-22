@@ -1,21 +1,22 @@
-import calculateTwoYearsSavings from "./calculateTwoYearsSavings";
+import { test, expect } from 'vitest'
+import calculateTwoYearsSavings from './calculateTwoYearsSavings'
 
-test("cheap flat", () => {
+test('cheap flat', () => {
   expect(
     calculateTwoYearsSavings({
       newFlatTotalPrice: 1900,
       currentMoveOutPrice: 100,
-      newMoveOutPrice: 50,
+      newMoveOutPrice: 50
     })
-  ).toBe(12600);
-});
+  ).toBe(12600)
+})
 
-test("expensive flat", () => {
+test('expensive flat', () => {
   expect(
     calculateTwoYearsSavings({
       newFlatTotalPrice: 2100,
       currentMoveOutPrice: 300,
-      newMoveOutPrice: 250,
+      newMoveOutPrice: 250
     })
-  ).toBe(3000);
-});
+  ).toBe(3000)
+})
