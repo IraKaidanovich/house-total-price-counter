@@ -1,42 +1,52 @@
 <script setup lang="ts">
 import finalizeCalculations from '@/modules/finalizeCalculations'
-import config from '@/config'
-interface Props {}
+import { useStore } from '@/store'
+import { computed } from 'vue'
 
-defineProps<Props>()
+const store = useStore()
 
 const moveOutDays = [0, 7, 15, 30, 45, 60]
 const noticePeriods = [30, 60]
 
-const price = '1500'
-const label = 'B'
-const travelTicketMisha = '0'
-const travelTicketNataliia = '0'
+const getResults = ({ price, label, travelTicketMisha, travelTicketNataliia, livingYears }) => {
+  const results: {
+    [key: string]: {
+      [key: string]: ReturnType<typeof finalizeCalculations>
+    }
+  } = {}
 
-const results: {
-  [key: string]: {
-    [key: string]: ReturnType<typeof finalizeCalculations>
-  }
-} = {}
+  moveOutDays.forEach((daysToMoveOut) => {
+    const result = {}
 
-moveOutDays.forEach((daysToMoveOut) => {
-  const result = {}
+    noticePeriods.forEach((noticePeriod) => {
+      const calculation = finalizeCalculations({
+        price,
+        label,
+        travelTicketMisha,
+        travelTicketNataliia,
+        daysBeforeMoveIn: daysToMoveOut,
+        newFlatNoticePeriod: noticePeriod,
+        livingYears
+      })
 
-  noticePeriods.forEach((noticePeriod) => {
-    const calculation = finalizeCalculations({
-      price,
-      label,
-      travelTicketMisha,
-      travelTicketNataliia,
-      daysBeforeMoveIn: daysToMoveOut.toString(),
-      newFlatNoticePeriod: noticePeriod.toString()
+      result[noticePeriod] = calculation
     })
 
-    result[noticePeriod] = calculation
+    results[daysToMoveOut] = result
   })
 
-  results[daysToMoveOut] = result
-})
+  return results
+}
+
+const calculationsResults = computed(() =>
+  getResults({
+    price: store.flatPrice,
+    label: store.energyLabel,
+    travelTicketMisha: store.travelTicketMisha,
+    travelTicketNataliia: store.travelTicketNataliia,
+    livingYears: store.livingYears
+  })
+)
 </script>
 
 <template>
@@ -51,7 +61,7 @@ moveOutDays.forEach((daysToMoveOut) => {
     </thead>
     <tbody>
       <tr
-        v-for="(calculationsForDaysBeforeMoveIn, daysBeforeMoveIn) in results"
+        v-for="(calculationsForDaysBeforeMoveIn, daysBeforeMoveIn) in calculationsResults"
         :key="daysBeforeMoveIn"
       >
         <td>{{ daysBeforeMoveIn }} days to move out</td>
@@ -59,13 +69,7 @@ moveOutDays.forEach((daysToMoveOut) => {
           v-for="(calculationForNoticePeriod, noticePeriod) in calculationsForDaysBeforeMoveIn"
           :key="noticePeriod"
         >
-          Current flat (Total expenses): {{ config.paymentForCurrentFlat }} euros, <br />
-          Current flat (Move out price): {{ calculationForNoticePeriod.currentMoveOutPrice }} euros,
-          <br />
-          New flat (Total expenses): {{ calculationForNoticePeriod.totalCosts }} euros, <br />
-          New flat (Move out price): {{ calculationForNoticePeriod.newMoveOutPrice }} euros, <br />
-          <br />
-          <b>Total savings (Per two years): {{ calculationForNoticePeriod.weWillSave }} euros</b>
+          {{ calculationForNoticePeriod.weWillSave }} euros
         </td>
       </tr>
     </tbody>

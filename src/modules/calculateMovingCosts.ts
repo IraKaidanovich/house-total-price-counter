@@ -1,29 +1,17 @@
-import config from "../config";
+import config from '../config'
 
 const calculateMovingCost = (
   pricePerMonth: number,
-  daysBeforeMoveIn: string,
-  noticePeriodDays: string
+  daysBeforeMoveIn: number,
+  noticePeriodDays: number
 ) => {
-  if (daysBeforeMoveIn.length != (+daysBeforeMoveIn).toString().length) {
-    throw new Error(
-      `Please provide number for days before moving in, you provided: "${daysBeforeMoveIn}"`
-    );
-  }
-
-  if (noticePeriodDays.length != (+noticePeriodDays).toString().length) {
-    throw new Error(
-      `Please provide number for notice period days, you provided: "${noticePeriodDays}"`
-    );
-  }
-
   const paidDays = Math.max(
     config.minimalTimeToMove,
     +noticePeriodDays - +daysBeforeMoveIn + config.expectedDaysToSignTheContract
-  );
-  const paidMonths = Math.min(paidDays / 30, +noticePeriodDays / 30);
+  )
+  const paidMonths = Math.min(paidDays / 30, +noticePeriodDays / 30)
 
-  return Math.round((pricePerMonth * paidMonths) / 12);
-};
+  return Math.round(pricePerMonth * paidMonths)
+}
 
-export default calculateMovingCost;
+export default calculateMovingCost

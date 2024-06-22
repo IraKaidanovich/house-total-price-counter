@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import InputsTable from './components/InputsTable.vue'
-import PricingMatrix from './components/PricingMatrix.vue'
+import InputsForm from '@/components/InputsForm.vue'
+import PricingMatrix from '@/components/PricingMatrix.vue'
 </script>
 
 <template>
   <div class="wrapper">
-    <InputsTable />
+    <InputsForm />
     <PricingMatrix />
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.wrapper {
+  padding: 20px;
+}
+</style>

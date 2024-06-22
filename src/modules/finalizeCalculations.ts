@@ -1,15 +1,16 @@
 import calculateTotalCosts from './calculateTotalCosts'
 import calculateMovingCost from './calculateMovingCosts'
 import config from '../config'
-import calculateTwoYearsSavings from './calculateTwoYearsSavings'
+import calculateSavings from './calculateSavings'
 
 type Params = {
-  price: string
+  price: number
   label: string
-  travelTicketMisha: string
-  travelTicketNataliia: string
-  daysBeforeMoveIn: string
-  newFlatNoticePeriod: string
+  travelTicketMisha: number
+  travelTicketNataliia: number
+  daysBeforeMoveIn: number
+  newFlatNoticePeriod: number
+  livingYears: number
 }
 
 export default ({
@@ -18,7 +19,8 @@ export default ({
   travelTicketMisha,
   travelTicketNataliia,
   daysBeforeMoveIn,
-  newFlatNoticePeriod
+  newFlatNoticePeriod,
+  livingYears
 }: Params) => {
   const totalCosts = calculateTotalCosts({
     price,
@@ -32,13 +34,14 @@ export default ({
   const currentMoveOutPrice = calculateMovingCost(
     config.paymentForCurrentFlat,
     daysBeforeMoveIn,
-    config.currentFlatNoticePeriodDays.toString()
+    config.currentFlatNoticePeriodDays
   )
 
-  const weWillSave = calculateTwoYearsSavings({
+  const weWillSave = calculateSavings({
     newFlatTotalPrice: totalCosts,
     newMoveOutPrice,
-    currentMoveOutPrice
+    currentMoveOutPrice,
+    livingYears
   })
 
   return {
