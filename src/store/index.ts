@@ -10,11 +10,11 @@ export const useStore = defineStore('main', () => {
 
   const isFormFilledIn = computed(() => {
     return (
-      flatPrice.value !== null &&
+      flatPrice.value &&
       energyLabel.value !== null &&
       travelTicketMisha.value !== null &&
       travelTicketNataliia.value !== null &&
-      livingMonths.value !== null
+      livingMonths.value
     )
   })
 
