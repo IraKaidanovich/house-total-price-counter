@@ -1,31 +1,38 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useStore = defineStore('main', () => {
-  const flatPrice = ref(null as number)
-  const energyLabel = ref(null as string)
-  const travelTicketMisha = ref(null as number)
-  const travelTicketNataliia = ref(null as number)
-  const livingMonths = ref(null as number)
-  const oneTimeCosts = ref(0)
+interface FlatDetails {
+  list: Array<{
+    price: number
+    label: number
+    travelTicketMisha: number
+    travelTicketNataliia: number
+    livingMonths: number
+    oneTimeCosts: number
+  }>
+}
 
-  const isFormFilledIn = computed(() => {
-    return (
-      flatPrice.value &&
-      energyLabel.value !== null &&
-      travelTicketMisha.value !== null &&
-      travelTicketNataliia.value !== null &&
-      livingMonths.value
-    )
-  })
+export const useStore = defineStore('main', () => {
+  const flatsDetails = ref({
+    list: []
+  } as FlatDetails)
+
+  const filledInFlatsDetails = computed(() =>
+    flatsDetails.value.list.filter((details) => {
+      console.log(details)
+      const isFormFilledIn =
+        details.price &&
+        details.label &&
+        details.travelTicketMisha !== undefined &&
+        details.travelTicketNataliia !== undefined &&
+        details.livingMonths
+
+      return isFormFilledIn
+    })
+  )
 
   return {
-    flatPrice,
-    energyLabel,
-    travelTicketMisha,
-    travelTicketNataliia,
-    livingMonths,
-    isFormFilledIn,
-    oneTimeCosts
+    flatsDetails,
+    filledInFlatsDetails
   }
 })

@@ -3,7 +3,16 @@ import finalizeCalculations from '@/modules/finalizeCalculations'
 import { useStore } from '@/store'
 import { computed } from 'vue'
 
-const store = useStore()
+interface Props {
+  price
+  label
+  travelTicketMisha
+  travelTicketNataliia
+  livingMonths
+  oneTimeCosts
+}
+
+const props = defineProps<Props>()
 
 const moveOutDays = [0, 7, 15, 30, 45, 60]
 const noticePeriods = [30, 60]
@@ -20,14 +29,14 @@ const getResults = () => {
 
     noticePeriods.forEach((noticePeriod) => {
       const calculation = finalizeCalculations({
-        price: store.flatPrice,
-        label: store.energyLabel,
-        travelTicketMisha: store.travelTicketMisha,
-        travelTicketNataliia: store.travelTicketNataliia,
+        price: props.price,
+        label: props.label,
+        travelTicketMisha: props.travelTicketMisha,
+        travelTicketNataliia: props.travelTicketNataliia,
         daysBeforeMoveIn: daysToMoveOut,
         newFlatNoticePeriod: noticePeriod,
-        livingMonths: store.livingMonths,
-        oneTimeCosts: store.oneTimeCosts
+        livingMonths: props.livingMonths,
+        oneTimeCosts: props.oneTimeCosts
       })
 
       result[noticePeriod] = calculation
@@ -43,36 +52,79 @@ const calculationsResults = computed(() => getResults())
 </script>
 
 <template>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th v-for="noticePeriod in noticePeriods" :key="noticePeriod">
-          New flat notice of {{ noticePeriod }} days
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="(calculationsForDaysBeforeMoveIn, daysBeforeMoveIn) in calculationsResults"
-        :key="daysBeforeMoveIn"
-      >
-        <td>{{ daysBeforeMoveIn }} days to move out</td>
-        <td
-          v-for="(calculationForNoticePeriod, noticePeriod) in calculationsForDaysBeforeMoveIn"
-          :key="noticePeriod"
+  <div class="pricing-matrix">
+    <div class="properties">
+      <div class="properties__items">
+        <div class="property">Price (Per month): {{ price }} euros</div>
+        <div class="property">Energy label: {{ label }}</div>
+        <div class="property">
+          Travel ticket Misha:
+          {{ travelTicketMisha === 7 ? 'Full city' : travelTicketMisha + ' zones' }}
+        </div>
+        <div class="property">
+          Travel ticket Nataliia:
+          {{ travelTicketNataliia === 7 ? 'Full city' : travelTicketNataliia + ' zones' }}
+        </div>
+        <div class="property">
+          How much months will you live there?:
+          {{ livingMonths }} months
+        </div>
+
+        <div class="property">
+          One time costs:
+          {{ oneTimeCosts }} euros
+        </div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th v-for="noticePeriod in noticePeriods" :key="noticePeriod">
+            New flat notice of {{ noticePeriod }} days
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(calculationsForDaysBeforeMoveIn, daysBeforeMoveIn) in calculationsResults"
+          :key="daysBeforeMoveIn"
         >
-          {{ calculationForNoticePeriod.weWillSave }} euros
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td>{{ daysBeforeMoveIn }} days to move out</td>
+          <td
+            v-for="(calculationForNoticePeriod, noticePeriod) in calculationsForDaysBeforeMoveIn"
+            :key="noticePeriod"
+          >
+            {{ calculationForNoticePeriod.weWillSave }} euros
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <style lang="scss" scoped>
+.properties {
+  background: #ca3600;
+  border-bottom: 0;
+  padding: 10px;
+
+  &__items {
+    display: flex;
+    align-items: center;
+    margin: 0 -10px -20px;
+  }
+}
+
+.property {
+  margin: 0 10px 20px;
+  color: #fff;
+}
+
 table {
   border-collapse: collapse;
-  margin: 25px 0;
+  margin: 0 0 25px;
   font-size: 0.9em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-width: 400px;
