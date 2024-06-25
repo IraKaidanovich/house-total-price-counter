@@ -44,7 +44,7 @@ const { flatsDetails } = storeToRefs(useStore())
     <div class="form__flat-details">
       <h2 class="form__flat-title">New flat</h2>
 
-      <FormKit type="form" v-model="flatsDetails">
+      <FormKit type="form" v-model="flatsDetails" :actions="false">
         <FormKit type="repeater" name="list" #default="{ index }">
           <div class="form__inputs">
             <div class="form__input form__input--name">
