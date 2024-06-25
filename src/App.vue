@@ -9,16 +9,7 @@ const store = useStore()
 <template>
   <div class="wrapper">
     <InputsForm />
-    <PricingMatrix
-      v-for="(flatDetails, index) in store.filledInFlatsDetails"
-      :key="index"
-      :price="flatDetails.price"
-      :label="flatDetails.label"
-      :travelTicketMisha="flatDetails.travelTicketMisha"
-      :travelTicketNataliia="flatDetails.travelTicketNataliia"
-      :livingMonths="flatDetails.livingMonths"
-      :oneTimeCosts="flatDetails.oneTimeCosts"
-    />
+    <PricingMatrix :flats="store.filledInFlatsDetails" />
   </div>
 </template>
 

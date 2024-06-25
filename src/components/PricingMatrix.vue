@@ -1,103 +1,57 @@
 <script setup lang="ts">
 import finalizeCalculations from '@/modules/finalizeCalculations'
-import { useStore } from '@/store'
 import { computed } from 'vue'
+import type { Flat } from '@/store'
 
 interface Props {
-  price
-  label
-  travelTicketMisha
-  travelTicketNataliia
-  livingMonths
-  oneTimeCosts
+  flats: Flat[]
 }
 
 const props = defineProps<Props>()
 
-const moveOutDays = [0, 7, 15, 30, 45, 60]
-const noticePeriods = [30, 60]
-
 const getResults = () => {
-  const results: {
-    [key: string]: {
-      [key: string]: ReturnType<typeof finalizeCalculations>
-    }
-  } = {}
+  let results: {
+    name: string
+    price: number
+  }[] = []
 
-  moveOutDays.forEach((daysToMoveOut) => {
-    const result = {}
-
-    noticePeriods.forEach((noticePeriod) => {
-      const calculation = finalizeCalculations({
-        price: props.price,
-        label: props.label,
-        travelTicketMisha: props.travelTicketMisha,
-        travelTicketNataliia: props.travelTicketNataliia,
-        daysBeforeMoveIn: daysToMoveOut,
-        newFlatNoticePeriod: noticePeriod,
-        livingMonths: props.livingMonths,
-        oneTimeCosts: props.oneTimeCosts
-      })
-
-      result[noticePeriod] = calculation
+  props.flats.forEach((flat) => {
+    const calculation = finalizeCalculations({
+      price: flat.price,
+      label: flat.label,
+      travelTicketMisha: flat.travelTicketMisha,
+      travelTicketNataliia: flat.travelTicketNataliia,
+      daysBeforeMoveIn: flat.moveInDays,
+      newFlatNoticePeriod: flat.moveOutDays,
+      livingMonths: flat.livingMonths,
+      oneTimeCosts: flat.oneTimeCosts
     })
 
-    results[daysToMoveOut] = result
+    results.push({
+      name: flat.name,
+      price: calculation.weWillSave
+    })
   })
 
   return results
 }
 
-const calculationsResults = computed(() => getResults())
+const flatsPrices = computed(() => getResults())
 </script>
 
 <template>
   <div class="pricing-matrix">
-    <div class="properties">
-      <div class="properties__items">
-        <div class="property">Price (Per month): {{ price }} euros</div>
-        <div class="property">Energy label: {{ label }}</div>
-        <div class="property">
-          Travel ticket Misha:
-          {{ travelTicketMisha === 7 ? 'Full city' : travelTicketMisha + ' zones' }}
-        </div>
-        <div class="property">
-          Travel ticket Nataliia:
-          {{ travelTicketNataliia === 7 ? 'Full city' : travelTicketNataliia + ' zones' }}
-        </div>
-        <div class="property">
-          How much months will you live there?:
-          {{ livingMonths }} months
-        </div>
-
-        <div class="property">
-          One time costs:
-          {{ oneTimeCosts }} euros
-        </div>
-      </div>
-    </div>
-
     <table>
       <thead>
         <tr>
-          <th></th>
-          <th v-for="noticePeriod in noticePeriods" :key="noticePeriod">
-            New flat notice of {{ noticePeriod }} days
-          </th>
+          <th>Name</th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(calculationsForDaysBeforeMoveIn, daysBeforeMoveIn) in calculationsResults"
-          :key="daysBeforeMoveIn"
-        >
-          <td>{{ daysBeforeMoveIn }} days to move out</td>
-          <td
-            v-for="(calculationForNoticePeriod, noticePeriod) in calculationsForDaysBeforeMoveIn"
-            :key="noticePeriod"
-          >
-            {{ calculationForNoticePeriod.weWillSave }} euros
-          </td>
+        <tr v-for="(flatPrice, index) in flatsPrices" :key="index">
+          <td>{{ flatPrice.name }}</td>
+          <td>{{ flatPrice.price }} euros</td>
         </tr>
       </tbody>
     </table>
@@ -105,23 +59,6 @@ const calculationsResults = computed(() => getResults())
 </template>
 
 <style lang="scss" scoped>
-.properties {
-  background: #ca3600;
-  border-bottom: 0;
-  padding: 10px;
-
-  &__items {
-    display: flex;
-    align-items: center;
-    margin: 0 -10px -20px;
-  }
-}
-
-.property {
-  margin: 0 10px 20px;
-  color: #fff;
-}
-
 table {
   border-collapse: collapse;
   margin: 0 0 25px;

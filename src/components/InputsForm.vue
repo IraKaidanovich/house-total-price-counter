@@ -45,8 +45,12 @@ const { flatsDetails } = storeToRefs(useStore())
       <h2 class="form__flat-title">New flat</h2>
 
       <FormKit type="form" v-model="flatsDetails">
-        <FormKit type="repeater" name="list">
+        <FormKit type="repeater" name="list" #default="{ index }">
           <div class="form__inputs">
+            <div class="form__input form__input--name">
+              <FormKit type="text" label="Flat name" name="name" :value="`Flat ${index + 1}`" />
+            </div>
+
             <div class="form__input">
               <FormKit
                 type="number"
@@ -117,6 +121,24 @@ const { flatsDetails } = storeToRefs(useStore())
             <div class="form__input">
               <FormKit type="number" label="One-time costs" name="oneTimeCosts" :value="0" />
             </div>
+
+            <div class="form__input">
+              <FormKit
+                type="number"
+                label="Days before moving in the new flat"
+                name="moveInDays"
+                :value="0"
+              />
+            </div>
+
+            <div class="form__input">
+              <FormKit
+                type="number"
+                label="Days before moving out from new flat"
+                name="moveOutDays"
+                :value="0"
+              />
+            </div>
           </div>
         </FormKit>
       </FormKit>
@@ -130,11 +152,21 @@ const { flatsDetails } = storeToRefs(useStore())
 
   &__inputs {
     display: flex;
-    margin: 20px -10px -20px;
+    flex-wrap: wrap;
+    margin: 20px -20px -20px;
   }
 
   &__input {
-    margin: 0 10px 20px;
+    margin: 0 20px 20px;
+
+    &--name :deep {
+      width: 100%;
+
+      input {
+        font-weight: bold;
+        color: #0049de;
+      }
+    }
   }
 }
 </style>
