@@ -84,10 +84,6 @@ tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
-}
-
 tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
@@ -95,11 +91,6 @@ tbody tr:last-of-type {
 tbody tr.active-row {
   font-weight: bold;
   color: #009879;
-}
-
-tbody tr:hover {
-  background-color: #f1f1f1;
-  cursor: pointer;
 }
 
 th {
@@ -111,9 +102,9 @@ th {
   text-align: left;
 }
 
-td:first-child {
-  background-color: #e94949;
-  color: white;
+td {
+  color: #000;
+  font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   font-weight: bold;
@@ -123,6 +114,22 @@ td:first-child {
 td:not(:first-child) {
   font-size: 0.9em;
   line-height: 1.6;
+}
+
+tr:nth-child(4n) {
+  background: #c1cfc3;
+}
+
+tr:nth-child(4n - 1) {
+  background: #7cf585;
+}
+
+tr:nth-child(4n - 2) {
+  background: #67d7f2;
+}
+
+tr:nth-child(4n - 3) {
+  background: #ffd882;
 }
 
 caption {
