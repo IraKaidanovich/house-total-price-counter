@@ -13,6 +13,7 @@ const getResults = () => {
   let results: {
     name: string
     price: number
+    backgroundColor: string
   }[] = []
 
   props.flats.forEach((flat) => {
@@ -29,7 +30,8 @@ const getResults = () => {
 
     results.push({
       name: flat.name,
-      price: calculation.weWillSave
+      price: calculation.weWillSave,
+      backgroundColor: flat.backgroundColor
     })
   })
 
@@ -49,7 +51,11 @@ const flatsPrices = computed(() => getResults())
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(flatPrice, index) in flatsPrices" :key="index">
+        <tr
+          v-for="(flatPrice, index) in flatsPrices"
+          :key="index"
+          :style="{ backgroundColor: flatPrice.backgroundColor }"
+        >
           <td>{{ flatPrice.name }}</td>
           <td>{{ flatPrice.price }} euros</td>
         </tr>

@@ -139,6 +139,27 @@ const { flatsDetails } = storeToRefs(useStore())
                 :value="0"
               />
             </div>
+
+            <div class="form__input">
+              <FormKit
+                type="select"
+                label="Background color"
+                :options="{
+                  '#FFCCCC': 'Light Red',
+                  '#CCFFCC': 'Light Green',
+                  '#CCCCFF': 'Light Blue',
+                  '#FFFFCC': 'Light Yellow',
+                  '#CCFFFF': 'Light Cyan',
+                  '#FFCCFF': 'Light Magenta (Pink)',
+                  '#FFE5CC': 'Light Orange',
+                  '#E6E6FA': 'Light Purple (Lavender)',
+                  '#F5F5DC': 'Light Brown (Beige)',
+                  '#FFEBEB': 'Light Pink'
+                }"
+                :placeholder="' '"
+                name="backgroundColor"
+              />
+            </div>
           </div>
         </FormKit>
       </FormKit>

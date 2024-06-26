@@ -1,4 +1,4 @@
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 export interface Flat {
@@ -11,6 +11,7 @@ export interface Flat {
   oneTimeCosts: number
   moveInDays: number
   moveOutDays: number
+  backgroundColor: string
 }
 
 export const useStore = defineStore('main', function () {
