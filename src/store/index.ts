@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 export interface Flat {
@@ -13,7 +13,7 @@ export interface Flat {
   moveOutDays: number
 }
 
-export const useStore = defineStore('main', () => {
+export const useStore = defineStore('main', function () {
   const flatsDetails = ref({
     list: []
   } as {
@@ -22,7 +22,6 @@ export const useStore = defineStore('main', () => {
 
   const filledInFlatsDetails = computed(() =>
     flatsDetails.value.list.filter((details) => {
-      console.log(details)
       const isFormFilledIn =
         details.price &&
         details.label &&
@@ -36,8 +35,25 @@ export const useStore = defineStore('main', () => {
     })
   )
 
+  const persistToLocalStorage = () => {
+    console.log('persist', flatsDetails.value)
+    localStorage.setItem('flatsDetails', JSON.stringify(flatsDetails.value))
+  }
+
+  const loadFromStorage = () => {
+    const jsonData = localStorage.getItem('flatsDetails')
+
+    if (!jsonData) return
+
+    flatsDetails.value = JSON.parse(jsonData)
+  }
+
+  loadFromStorage()
+  watch(flatsDetails, persistToLocalStorage)
+
   return {
     flatsDetails,
-    filledInFlatsDetails
+    filledInFlatsDetails,
+    loadFromStorage
   }
 })
